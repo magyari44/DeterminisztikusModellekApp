@@ -3,7 +3,9 @@ html(lang='en')
   head(role='header')
     title= helpers.formatMetaTitle(title, currentLocale.code)
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
+    script(src='/scripts/jquery.min.js')
+    script(src='/scripts/jquery-ui.min.js')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     meta(name='description' content=translate('metaDescription', currentLocale.code))
     meta(name='twitter:card' content=translate('metaTwitterCard', currentLocale.code))
@@ -149,6 +151,7 @@ html(lang='en')
             use(xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/icons/icons.svg#cross")
 
   script(src='/scripts/index.js')
+
 
   if process.env.TRACKING
     include ./tracking.pug

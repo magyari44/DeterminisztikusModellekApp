@@ -7,21 +7,51 @@ block content
           h1.course__title= model.fields.title
           .course__description !{helpers.markdown(model.fields.description)}
         div.row
-          div.col-4.lb-md
-              label(for='monthCount') #{translate('monthCountLabel', currentLocale.code)}
-              input#monthCount.form-control(type='text', name='monthCount')
-          div.col-4.lb-md
-              label(for='articleCount') #{translate('articleCountLabel', currentLocale.code)}
-              input#articleCount.form-control(type='text', name='articleCount')
-          div.col-4.lb-md
-              label(for='articlePerMonth') #{translate('articlePerMonthLabel', currentLocale.code)}
-              input#articlePerMonth.form-control(type='text', name='articlePerMonth')
-          div.col-4v.lb-md
-              label(for='oneItemCost') #{translate('oneItemCostLabel', currentLocale.code)}
-              input#oneItemCost.form-control(type='text' name='oneItemCost')
-          div.col-4.lb-md
-              label(for='monthlyCostPerItem') #{translate('monthlyCostPerItemLabel', currentLocale.code)}
-              input#monthlyCostPerItem.form-control(type='text' name='monthlyCostPerItem')
+          div.form-group.lb-md
+              label(for='daysCount') #{translate('daysCountLabel', currentLocale.code)} T
+              input#daysCount.form-control.numbers-only(type='text', name='daysCount')
+          div.form-group.lb-md
+              label(for='articleCount') #{translate('articleCountLabel', currentLocale.code)} R
+              input#articleCount.form-control.numbers-only(type='text', name='articleCount')
+          div.form-group.lb-md
+              label(for='oneItemCost') #{translate('oneItemCostLabel', currentLocale.code)} Ft c1
+              input#oneItemCost.form-control.numbers-only(type='text' name='oneItemCost')
+          div.form-group.lb-md
+              label(for='monthlyCostPerItem') #{translate('monthlyCostPerItemLabel', currentLocale.code)} Ft c2
+              input#monthlyCostPerItem.form-control.numbers-only(type='text' name='monthlyCostPerItem')
         div.row
             div.mx-auto.m-5(style='width: 200px;')
-                button.btn.btn-primary(type='button') #{translate('CalculateButton', currentLocale.code)}
+                button.calculate-button.btn.btn-primary(type='button') #{translate('CalculateButton', currentLocale.code)}
+        div.row
+            div.form-group.lb-md
+                label(for='optimalSizeOfArticles') #{translate('optimalSizeOfArticlesLabel', currentLocale.code)} q0
+                input#optimalSizeOfArticles.form-control.numbers-only(type='text', name='optimalSizeOfArticles', readonly='readonly')
+            div.form-group.lb-md
+                label(for='optimalOrderPeriod') #{translate('optimalOrderPeriodLabel', currentLocale.code)} t0
+                input#optimalOrderPeriod.form-control.numbers-only(type='text', name='optimalOrderPeriod', readonly='readonly')
+            div.lb-md
+                label(for='minimalOrderCost') #{translate('minimalOrderCostLabel', currentLocale.code)} (Ft) K0
+                input#minimalOrderCost.form-control.numbers-only(type='text', name='minimalOrderCost', readonly='readonly')
+    script.
+
+      jQuery('.numbers-only').keyup(function () {
+        this.value = this.value.replace(/[^0-9\.]/g, '');
+      });
+
+        $(".calculate-button").click(function () {
+          var daysCount = $("#daysCount").val(); //T
+          var articleCount = $("#articleCount").val(); //R
+          var monthlyCostPerItem = $("#monthlyCostPerItem").val(); //c2
+          var oneItemCost = $("#oneItemCost").val(); //c1
+
+          var optimalOrderSize = Math.sqrt((2* (articleCount * oneItemCost) / (daysCount * monthlyCostPerItem)));
+          $("#optimalSizeOfArticles").val(optimalOrderSize.toFixed(0));
+
+          var optimalOrderingPeriod = Math.sqrt((2* (daysCount * oneItemCost) / (articleCount * monthlyCostPerItem)));
+          $("#optimalOrderPeriod").val(optimalOrderingPeriod.toFixed(2));
+
+          var minimalCost = Math.sqrt(2 * articleCount * daysCount * oneItemCost * monthlyCostPerItem);
+          $("#minimalOrderCost").val(minimalCost.toFixed(2));
+
+        })
+

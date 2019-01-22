@@ -124,10 +124,13 @@
   "stackTraceErrorHint": "Check the stack trace below.",
   "errorLabel": "Error from Contentful:",
   "stackTraceLabel": "Stack trace:",
-  "monthCountLabel": "Number of total months:",
+  "daysCountLabel": "Number of total days:",
   "articleCountLabel": "Number of total article:",
   "articlePerMonthLabel": "Number of article per month",
-  "oneItemCostLabel": "Cost/item order price:",
+  "oneItemCostLabel": "Cost/item purchase price:",
   "monthlyCostPerItemLabel": "Cost/item storage price:",
-  "CalculateButton": "Calculate"
+  "CalculateButton": "Calculate",
+  "optimalOrderPeriodLabel": "Optimal order period",
+  "optimalSizeOfArticlesLabel": "Optimal size of ordered articles",
+  "minimalOrderCostLabel": "Minimal order cost"
 }

@@ -16,7 +16,7 @@ const optimalLotSize = {
   sys: { id: 'optimal-lot-size' },
   fields: {
     title: 'Optimal lot size',
-    description: 'Optimal lot size model',
+    description: '5 hónap alatt 100 db árucikk szükséges, a fogyasztó rendelése egyenletes, havonta 20 db-ot igényel. Egy tétel rendelési költsége 400 Ft, havi raktározási költsége 10 Ft. Mi a minimális költséggel járó politika?\n',
     slug: 'optimal-lot-size'
   }
 }
@@ -80,5 +80,5 @@ module.exports.getModels = async (request, response, next) => {
 module.exports.getModel = async (request, response, next) => {
   let model = models.find(o => o.sys.id === request.params.slug)
 
-  response.render(model.sys.id, {title: 'asdasd', model})
+  response.render(model.sys.id, {title: model.fields.title, model})
 }
