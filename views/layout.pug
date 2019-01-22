@@ -56,11 +56,9 @@ html(lang='en')
                   li
                     a(href=`/${queryString}` class=(currentPath === '/'? 'active' : '')) #{translate('homeLabel', currentLocale.code)}
                   li
-                    a(href=`/courses${queryString}` class=(currentPath.startsWith('/courses') ? 'active' : '') ) #{translate('coursesLabel', currentLocale.code)}
-                  li
                     a(href=`/models${queryString}` class=(currentPath.startsWith('/models') ? 'active' : '') ) #{translate('modelsLabel', currentLocale.code)}
         .main__content
-      
+
       .main__content
         block content
 
