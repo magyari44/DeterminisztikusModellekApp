@@ -123,5 +123,11 @@
   "verifyCredentialsErrorHint": "Verify that your space id and access tokens are correct and up to date.",
   "stackTraceErrorHint": "Check the stack trace below.",
   "errorLabel": "Error from Contentful:",
-  "stackTraceLabel": "Stack trace:"
+  "stackTraceLabel": "Stack trace:",
+  "monthCountLabel": "Number of total months:",
+  "articleCountLabel": "Number of total article:",
+  "articlePerMonthLabel": "Number of article per month",
+  "oneItemCostLabel": "Cost/item order price:",
+  "monthlyCostPerItemLabel": "Cost/item storage price:",
+  "CalculateButton": "Calculate"
 }

@@ -3,6 +3,7 @@ html(lang='en')
   head(role='header')
     title= helpers.formatMetaTitle(title, currentLocale.code)
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
     meta(name='viewport' content='width=device-width, initial-scale=1')
     meta(name='description' content=translate('metaDescription', currentLocale.code))
     meta(name='twitter:card' content=translate('metaTwitterCard', currentLocale.code))
@@ -60,7 +61,7 @@ html(lang='en')
                   li
                     a(href=`/models${queryString}` class=(currentPath.startsWith('/models') ? 'active' : '') ) #{translate('modelsLabel', currentLocale.code)}
         .main__content
-      
+
       .main__content
         block content
 

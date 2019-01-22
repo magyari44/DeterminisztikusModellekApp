@@ -6,3 +6,22 @@ block content
         .course
           h1.course__title= model.fields.title
           .course__description !{helpers.markdown(model.fields.description)}
+        div.row
+          div.col-4.lb-md
+              label(for='monthCount') #{translate('monthCountLabel', currentLocale.code)}
+              input#monthCount.form-control(type='text', name='monthCount')
+          div.col-4.lb-md
+              label(for='articleCount') #{translate('articleCountLabel', currentLocale.code)}
+              input#articleCount.form-control(type='text', name='articleCount')
+          div.col-4.lb-md
+              label(for='articlePerMonth') #{translate('articlePerMonthLabel', currentLocale.code)}
+              input#articlePerMonth.form-control(type='text', name='articlePerMonth')
+          div.col-4v.lb-md
+              label(for='oneItemCost') #{translate('oneItemCostLabel', currentLocale.code)}
+              input#oneItemCost.form-control(type='text' name='oneItemCost')
+          div.col-4.lb-md
+              label(for='monthlyCostPerItem') #{translate('monthlyCostPerItemLabel', currentLocale.code)}
+              input#monthlyCostPerItem.form-control(type='text' name='monthlyCostPerItem')
+        div.row
+            div.mx-auto.m-5(style='width: 200px;')
+                button.btn.btn-primary(type='button') #{translate('CalculateButton', currentLocale.code)}
