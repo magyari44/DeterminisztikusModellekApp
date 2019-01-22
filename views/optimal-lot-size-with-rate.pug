@@ -1,0 +1,8 @@
+extends layout
+
+block content
+  .layout-sidebar
+    section.layout-sidebar__content
+        .course
+          h1.course__title= model.fields.title
+          .course__description !{helpers.markdown(model.fields.description)}

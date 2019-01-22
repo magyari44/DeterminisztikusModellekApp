@@ -34,5 +34,6 @@ router.get('/courses/:cslug/lessons/:lslug', catchErrors(getLesson))
 
 // Models routes
 router.get('/models', catchErrors(getModels))
+router.get('/models/:slug', catchErrors(getModel))
 
 module.exports = router

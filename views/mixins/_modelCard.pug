@@ -1,9 +1,9 @@
 include _entryState
 
 mixin modelCard(model = {fields: {title: '', description: '',}})
-  .course-card
-    h2.course-card__title
-      a(href=`/courses/${model.fields.slug}${queryString}`)= model.fields.title
-    p.course-card__description= model.fields.description
-    .course-card__link-wrapper
-      a.course-card__link(href=`/courses/${model.fields.slug}${queryString}`) #{translate("viewModelLabel", currentLocale.code)}
+    .course-card
+        h2.course-card__title
+            a(href=`/courses/${model.fields.slug}${queryString}`)= model.fields.title
+        p.course-card__description= model.fields.description
+        .course-card__link-wrapper
+            a.course-card__link(href=`/models/${model.fields.slug}`) #{translate("viewModelLabel", currentLocale.code)}

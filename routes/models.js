@@ -13,36 +13,42 @@ const shouldAttachEntryState = require('../lib/should-attach-entry-state')
 const { updateCookie } = require('../lib/cookies')
 const { translate } = require('../i18n/i18n')
 const optimalLotSize = {
-  sys: { id: 'modelId' },
+  sys: { id: 'optimal-lot-size' },
   fields: {
     title: 'Optimal lot size',
-    description: 'Optimal lot size model'
+    description: 'Optimal lot size model',
+    slug: 'optimal-lot-size'
   }
 }
 
 const optimalLotSizeWithRate = {
-  sys: { id: 'modelId' },
+  sys: { id: 'optimal-lot-size-with-rate' },
   fields: {
     title: 'Optimal lot size with rate',
-    description: 'Optimal lot size with rate model'
+    description: 'Optimal lot size with rate model',
+    slug: 'optimal-lot-size-with-rate'
   }
 }
 
 const optimalLotSizeWithDiscount = {
-  sys: { id: 'modelId' },
+  sys: { id: 'optimal-lot-size-with-discount' },
   fields: {
     title: 'Optimal lot size with discount',
-    description: 'Optimal lot size with discount model'
+    description: 'Optimal lot size with discount model',
+    slug: 'optimal-lot-size-with-discount'
   }
 }
 
 const optimalLotSizeWithStorageShortage = {
-  sys: { id: 'modelId' },
+  sys: { id: 'optimal-lot-size-with-storage-shortage' },
   fields: {
     title: 'Optimal lot size with storage shortage',
-    description: 'Optimal lot size with storage shortage model'
+    description: 'Optimal lot size with storage shortage model',
+    slug: 'optimal-lot-size-with-storage-shortage'
   }
 }
+
+const models = [optimalLotSize, optimalLotSizeWithRate, optimalLotSizeWithDiscount, optimalLotSizeWithStorageShortage]
 
 /**
  * Renders courses list when `/courses` route is requested
@@ -55,7 +61,6 @@ const optimalLotSizeWithStorageShortage = {
  */
 module.exports.getModels = async (request, response, next) => {
   // Get all the entries of content type course
-  let models = [optimalLotSize, optimalLotSizeWithRate, optimalLotSizeWithDiscount, optimalLotSizeWithStorageShortage]
 
   response.render('models', {
     title: `${translate('allModelsLabel', response.locals.currentLocale.code)} (${models.length})`,
@@ -73,6 +78,7 @@ module.exports.getModels = async (request, response, next) => {
  * @returns {undefined}
  */
 module.exports.getModel = async (request, response, next) => {
+  let model = models.find(o => o.sys.id === request.params.slug)
 
-  response.render('models', {title: 'asd'})
+  response.render(model.sys.id, {title: 'asdasd', model})
 }
