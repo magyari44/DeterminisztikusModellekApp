@@ -21,5 +21,13 @@ const mockCategory = {
 
 module.exports = {
   mockCourse,
-  mockCategory
+  mockCategory,
+  mockModel
+}
+
+const mockModel = {
+  sys: { id: 'modelId' },
+  fields: {
+    title: 'Model title'
+  }
 }
