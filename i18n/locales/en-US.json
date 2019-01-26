@@ -125,12 +125,21 @@
   "errorLabel": "Error from Contentful:",
   "stackTraceLabel": "Stack trace:",
   "daysCountLabel": "Number of total days:",
+  "monthCountLabel": "Number of total month:",
   "articleCountLabel": "Number of total article:",
   "articlePerMonthLabel": "Number of article per month",
   "oneItemCostLabel": "Cost/item purchase price:",
+  "oneItemCostLabel2": "The storage cost of the given number of articles",
+  "oneItemCostLabel3": "The storage cost while article are missing",
   "monthlyCostPerItemLabel": "Cost/item storage price:",
   "CalculateButton": "Calculate",
   "optimalOrderPeriodLabel": "Optimal order period",
   "optimalSizeOfArticlesLabel": "Optimal size of ordered articles",
-  "minimalOrderCostLabel": "Minimal order cost"
+  "minimalOrderCostLabel": "Minimal order cost",
+  "CostPerItemDiscount": "Cost/item purchase price with discount",
+  "numberOfArticles": "Number of articles",
+  "numberOfArticlesForDiscount": "Number of articles to get the discount",
+  "storageCost": "Storage cost",
+  "totalProductionCost": "Total production cost per y piece of article",
+  "quantity": "Quantity in stock upon arrival of orders"
 }

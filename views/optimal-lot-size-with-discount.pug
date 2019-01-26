@@ -1,8 +1,86 @@
 extends layout
 
 block content
-  .layout-sidebar
-    section.layout-sidebar__content
-        .course
-          h1.course__title= model.fields.title
-          .course__description !{helpers.markdown(model.fields.description)}
+    .layout-sidebar
+        section.layout-sidebar__content
+            .course
+                h1.course__title= model.fields.title
+                .course__description !{helpers.markdown(model.fields.description)}
+            div.row
+                div.form-group.lb-md
+                    label(for='daysCount') #{translate('monthCountLabel', currentLocale.code)} T
+                    input#daysCount.form-control.numbers-only(type='text', name='daysCount')
+                div.form-group.lb-md
+                    label(for='articleCount') #{translate('articleCountLabel', currentLocale.code)} R
+                    input#articleCount.form-control.numbers-only(type='text', name='articleCount')
+                div.form-group.lb-md
+                    label(for='oneItemCost') #{translate('oneItemCostLabel', currentLocale.code)} Ft c1
+                    input#oneItemCost.form-control.numbers-only(type='text' name='oneItemCost')
+                div.form-group.lb-md
+                    label(for='CostPerItemDiscount1') #{translate('CostPerItemDiscount', currentLocale.code)} Ft b1
+                    input#CostPerItemDiscount1.form-control.numbers-only(type='text' name='CostPerItemDiscount1')
+                div.form-group.lb-md
+                    label(for='CostPerItemDiscount2') #{translate('CostPerItemDiscount', currentLocale.code)} Ft b2
+                    input#CostPerItemDiscount2.form-control.numbers-only(type='text' name='CostPerItemDiscount2')
+                div.form-group.lb-md
+                    label(for='numberOfArticlesForDiscount') #{translate('numberOfArticlesForDiscount', currentLocale.code)} Q
+                    input#numberOfArticlesForDiscount.form-control.numbers-only(type='text' name='numberOfArticlesForDiscount')
+                div.form-group.lb-md
+                    label(for='storageCost') #{translate('storageCost', currentLocale.code)} Ft w
+                    input#storageCost.form-control.numbers-only(type='text' name='storageCost')
+            div.row
+                div.mx-auto.m-5(style='width: 200px;')
+                    button.calculate-button.btn.btn-primary(type='button') #{translate('CalculateButton', currentLocale.code)}
+            div.row
+                div.form-group.lb-md
+                    label(for='optimalSizeOfArticles') #{translate('optimalSizeOfArticlesLabel', currentLocale.code)} q
+                    input#optimalSizeOfArticles.form-control.numbers-only(type='text', name='optimalSizeOfArticles', readonly='readonly')
+                div.form-group.lb-md
+                    label(for='optimalOrderPeriod') #{translate('optimalOrderPeriodLabel', currentLocale.code)} t0
+                    input#optimalOrderPeriod.form-control.numbers-only(type='text', name='optimalOrderPeriod', readonly='readonly')
+                div.lb-md
+                    label(for='minimalOrderCost') #{translate('minimalOrderCostLabel', currentLocale.code)} (Ft) KT(q)
+                    input#minimalOrderCost.form-control.numbers-only(type='text', name='minimalOrderCost', readonly='readonly')
+        script.
+
+          jQuery('.numbers-only').keyup(function () {
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+          });
+
+          $(".calculate-button").click(function () {
+            var daysCount = $("#daysCount").val(); //T
+            var articleCount = $("#articleCount").val(); //R
+            var CostPerItemDiscount1 = $("#CostPerItemDiscount1").val(); //b1
+            var CostPerItemDiscount2 = $("#CostPerItemDiscount2").val(); //b2
+            var oneItemCost = $("#oneItemCost").val(); //c1
+            var numberOfArticlesForDiscount = $("#numberOfArticlesForDiscount").val(); //Q
+            var storageCost = $("#storageCost").val(); //w
+
+            var r = articleCount / daysCount;
+            var q2 = Math.sqrt(2 * r * (oneItemCost / (CostPerItemDiscount2 * storageCost)));
+
+
+            if (q2 > numberOfArticlesForDiscount) {
+              var minimalCost = Math.sqrt(2 * articleCount * daysCount * oneItemCost * CostPerItemDiscount2 * storageCost) + (articleCount * CostPerItemDiscount2) + ((daysCount / 2) * oneItemCost * storageCost);
+              $("#minimalOrderCost").val(minimalCost.toFixed(2));
+              $("#optimalSizeOfArticles").val(q2.toFixed(0));
+              //t0
+              var optimalOrderingPeriod = minimalCost / r;
+              $("#optimalOrderPeriod").val(optimalOrderingPeriod.toFixed(2));
+            } else {
+              var q1 = Math.sqrt(2 * r * (oneItemCost / (CostPerItemDiscount1 * storageCost)));
+              var minimalCostq1 = Math.sqrt(2 * articleCount * daysCount * oneItemCost * CostPerItemDiscount1 * storageCost) +
+                    (articleCount * CostPerItemDiscount1) + ((daysCount / 2) * oneItemCost * storageCost);
+              var minimalCost1Q = ((oneItemCost * articleCount) / numberOfArticlesForDiscount) + CostPerItemDiscount2 * articleCount +
+                    0.5 * oneItemCost * daysCount * storageCost + 0.5 * CostPerItemDiscount2 * daysCount * storageCost * numberOfArticlesForDiscount;
+              var minq = q1 < numberOfArticlesForDiscount ? q1 : numberOfArticlesForDiscount;
+              $("#optimalSizeOfArticles").val(minq.toFixed(0));
+              var minKT = minimalCostq1 < minimalCost1Q ? minimalCostq1 : minimalCost1Q;
+              //t0
+              var optimalOrderingPeriod = minq / r;
+              $("#optimalOrderPeriod").val(optimalOrderingPeriod.toFixed(2));
+              $("#minimalOrderCost").val(minKT.toFixed(2));
+            }
+
+          })
+
